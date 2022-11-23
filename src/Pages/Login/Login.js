@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { FaGooglePlusG } from "react-icons/fa";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const Login = () => {
+  const { signIn, error } = useContext(AuthContext);
+
+  const handleSignIn = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    signIn(email, password);
+    form.reset();
+  };
+
   return (
     <div>
       <div className="flex justify-center py-20 bg-white ">
         <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-100 text-gray-900 shadow-xl shadow-slate-400 hover:shadow-slate-900">
           <h1 className="text-2xl font-bold text-center">Login</h1>
-          <form className="space-y-6 ng-untouched ng-pristine ng-valid">
+          <form
+            onSubmit={handleSignIn}
+            className="space-y-6 ng-untouched ng-pristine ng-valid"
+          >
             <div className="space-y-1 text-sm">
               <label
                 htmlFor="email"
@@ -44,10 +58,15 @@ const Login = () => {
                 <a href="/">Forgot Password?</a>
               </div>
             </div>
+            <p className="text-red-600 font-bold">
+              {error === "Firebase: Error (auth/wrong-password)."
+                ? "Please Provide Right Password."
+                : "User Email Not Found."}
+            </p>
             <button className="block w-full p-3 text-center font-semibold rounded-sm text-gray-900 bg-violet-400">
               Sign in
             </button>
-            <p className="text-red-600">{}</p>
+            <p>{error}</p>
           </form>
           <div className="flex items-center pt-4 space-x-1">
             <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>

@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebase.init";
@@ -40,6 +41,19 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  //   sign in with email/password
+
+  const signIn = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        const user = result.user;
+        toast.success("Login Successfully");
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -48,7 +62,7 @@ const AuthProvider = ({ children }) => {
     return () => unSubscribe();
   }, [user]);
 
-  const authInfo = { user, loading, error, createUser };
+  const authInfo = { user, loading, error, createUser, signIn };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
