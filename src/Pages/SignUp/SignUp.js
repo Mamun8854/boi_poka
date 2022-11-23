@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const SignUp = () => {
+  const { createUser, error } = useContext(AuthContext);
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photoURL = form.photoURL.value;
+    const password = form.password.value;
+    createUser(email, password, name, photoURL);
+    form.reset();
+  };
   return (
     <div>
       <div className="flex justify-center bg-white py-20">
@@ -9,7 +21,10 @@ const SignUp = () => {
           <h1 className="text-2xl font-bold text-center text-black">
             Registration
           </h1>
-          <form className="space-y-6 ng-untouched ng-pristine ng-valid">
+          <form
+            onSubmit={handleSignUp}
+            className="space-y-6 ng-untouched ng-pristine ng-valid"
+          >
             <div className="space-y-1 text-sm">
               <label
                 htmlFor="name"
@@ -74,10 +89,13 @@ const SignUp = () => {
                 className="w-full px-4 py-3 rounded-md border border-gray-700 stroke-cyan-500 text-gray-900 focus:border-violet-400"
               />
             </div>
+            <p className="text-red-600 font-bold">
+              {error === "Firebase: Error (auth/email-already-in-use)." &&
+                "This email is already used."}
+            </p>
             <button className="block w-full p-3 text-center font-semibold rounded-sm text-gray-900 bg-violet-400">
               Registration
             </button>
-            <p className="text-red-600">{}</p>
           </form>
           <p className="text-xs text-center sm:px-6 text-gray-400">
             Do you have an account?

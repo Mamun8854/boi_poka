@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import Lottie from "lottie-react";
+import ErrorImage from "./error.json";
 
 const Error = () => {
   return (
@@ -9,7 +11,12 @@ const Error = () => {
         <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8 bg-white p-10 rounded-lg ">
           <div className="max-w-md text-center">
             <h2 className="mb-8 font-extrabold text-9xl dark:text-orange-900">
-              <span className="sr-only">Error</span>404
+              <span className="sr-only">Error</span>
+              <Lottie
+                className="w-[400px]"
+                animationData={ErrorImage}
+                loop={true}
+              />
             </h2>
             <div>
               <p className="text-2xl font-semibold md:text-3xl">
