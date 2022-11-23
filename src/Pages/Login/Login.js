@@ -59,9 +59,10 @@ const Login = () => {
               </div>
             </div>
             <p className="text-red-600 font-bold">
-              {error === "Firebase: Error (auth/wrong-password)."
-                ? "Please Provide Right Password."
-                : "User Email Not Found."}
+              {(error === "Firebase: Error (auth/wrong-password)." &&
+                "Please Provide Right Password.") ||
+                (error === "Firebase: Error (auth/user-not-found)." &&
+                  "User Not FOund")}
             </p>
             <button className="block w-full p-3 text-center font-semibold rounded-sm text-gray-900 bg-violet-400">
               Sign in

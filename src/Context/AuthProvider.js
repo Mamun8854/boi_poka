@@ -5,6 +5,7 @@ import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebase.init";
@@ -47,10 +48,20 @@ const AuthProvider = ({ children }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const user = result.user;
+        console.log(user);
         toast.success("Login Successfully");
       })
       .catch((error) => {
         setError(error.message);
+      });
+  };
+
+  //   Log Out user
+  const logOutUser = () => {
+    return signOut(auth)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -62,7 +73,7 @@ const AuthProvider = ({ children }) => {
     return () => unSubscribe();
   }, [user]);
 
-  const authInfo = { user, loading, error, createUser, signIn };
+  const authInfo = { user, loading, error, createUser, signIn, logOutUser };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
