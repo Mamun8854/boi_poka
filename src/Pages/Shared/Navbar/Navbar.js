@@ -33,13 +33,16 @@ const Navbar = () => {
                 <Link to="/">Home</Link>
               </li>
               <li tabIndex={0}>
-                <Link to="/" className="justify-between">
-                  Parent
-                </Link>
+                <Link to="/category">Category</Link>
               </li>
               <li>
-                <Link to="/">Blog</Link>
+                <Link to="/blog">Blog</Link>
               </li>
+              {user && (
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+              )}
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost normal-case text-xl">
@@ -52,23 +55,54 @@ const Navbar = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/">Parent</Link>
+              <Link to="/category">Category</Link>
             </li>
             <li>
               <Link to="/">Blog</Link>
             </li>
+            {user && (
+              <>
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+                <li>
+                  <label
+                    htmlFor="dashboard-drawer"
+                    tabIndex={1}
+                    className="btn btn-ghost lg:hidden"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6h16M4 12h8m-8 6h16"
+                      />
+                    </svg>
+                  </label>
+                </li>
+              </>
+            )}
           </ul>
         </div>
         <div className="navbar-end">
           {user ? (
-            <Link to="/login">
-              <button
-                onClick={() => logOutUser()}
-                className="btn btn-outline mr-4"
-              >
-                Log Out
-              </button>
-            </Link>
+            <>
+              <Link to="/login">
+                <button
+                  onClick={() => logOutUser()}
+                  className="btn btn-outline mr-4"
+                >
+                  Log Out
+                </button>
+              </Link>
+            </>
           ) : (
             <>
               <Link to="/login" className="btn btn-outline mr-4">

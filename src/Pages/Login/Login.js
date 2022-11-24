@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import { FaGooglePlusG } from "react-icons/fa";
 const Login = () => {
-  const { signIn, error, googleLogin } = useContext(AuthContext);
+  const { signIn, error, googleLogin, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -14,9 +14,15 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     signIn(email, password);
-    navigate(from, { replace: true });
+
     form.reset();
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [user, from, navigate]);
 
   return (
     <div>
