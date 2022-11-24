@@ -40,25 +40,6 @@ const Navbar = () => {
               <li>
                 <Link to="/">Blog</Link>
               </li>
-              {/* {user ? (
-                <Link to="/login">
-                  <button
-                    onClick={() => logOutUser()}
-                    className="btn btn-outline mr-4"
-                  >
-                    Log Out
-                  </button>
-                </Link>
-              ) : (
-                <>
-                  <Link to="/login" className="btn btn-outline mr-4">
-                    Log In
-                  </Link>
-                  <Link to="/signup" className="btn">
-                    Sign Up
-                  </Link>
-                </>
-              )} */}
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost normal-case text-xl">
@@ -66,7 +47,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal p-0">
+          <ul className="menu menu-horizontal p-0 font-bold">
             <li>
               <Link to="/">Home</Link>
             </li>

@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 
 const SignUp = () => {
-  const { createUser, error } = useContext(AuthContext);
+  const { createUser, error, setIsSeller } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // handle signUp
   const handleSignUp = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -16,6 +18,12 @@ const SignUp = () => {
     navigate("/");
     form.reset();
   };
+
+  // handle Checkbox
+  const handleCheckbox = (event) => {
+    setIsSeller(event.target.checked);
+  };
+
   return (
     <div>
       <div className="flex justify-center bg-white py-20">
@@ -91,6 +99,11 @@ const SignUp = () => {
                 className="w-full px-4 py-3 rounded-md border border-gray-700 stroke-cyan-500 text-gray-900 focus:border-violet-400"
               />
             </div>
+            <input
+              onChange={handleCheckbox}
+              type="checkbox"
+              className="checkbox mt-10"
+            />
             <p className="text-red-600 font-bold">
               {error === "Firebase: Error (auth/email-already-in-use)." &&
                 "This email is already used."}
