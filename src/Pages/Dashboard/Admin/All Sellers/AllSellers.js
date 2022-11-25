@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../../Context/AuthProvider";
+import Loading from "../../../Shared/Loading/Loading";
 
 const AllSellers = () => {
+  const { loading } = useContext(AuthContext);
   const [sellers, setSellers] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/allSeller?role=seller")
@@ -9,6 +12,10 @@ const AllSellers = () => {
         setSellers(data);
       });
   }, []);
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div>

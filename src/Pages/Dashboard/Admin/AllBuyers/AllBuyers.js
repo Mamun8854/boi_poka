@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../../Context/AuthProvider";
+import Loading from "../../../Shared/Loading/Loading";
 
 const AllBuyers = () => {
+  const { loading } = useContext(AuthContext);
   const [buyers, setBuyers] = useState([]);
 
   useEffect(() => {
@@ -10,6 +13,11 @@ const AllBuyers = () => {
         setBuyers(data);
       });
   }, []);
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
+
   return (
     <div>
       <h2>All buyers</h2>
