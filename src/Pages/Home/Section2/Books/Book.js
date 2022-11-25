@@ -2,23 +2,15 @@ import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 
 const Book = ({ book }) => {
-  const {
-    name,
-    picture,
-    useTime,
-    location,
-    resalePrice,
-    originalPrice,
-    seller,
-    sellerImg,
-  } = book;
+  const { image, sellerName, sellerPhoto, data } = book;
+  console.log(book);
   return (
     <div>
       <div className="max-w-lg p-4 shadow-md dark:bg-gray-900 dark:text-gray-100">
         <div className="space-y-4">
           <div className="space-y-2">
             <img
-              src="https://source.unsplash.com/random/480x360/?4"
+              src={image}
               alt=""
               className="block object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
             />
@@ -29,13 +21,13 @@ const Book = ({ book }) => {
           <div className="flex items-center mt-6">
             <img
               className="object-cover object-center w-10 h-10 rounded-full"
-              src={sellerImg}
+              src={image}
               alt=""
             />
 
             <div className="mx-4">
               <h1 className="text-sm text-gray-700 dark:text-gray-200">
-                {seller}
+                {sellerName}
               </h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Lead Developer
@@ -44,23 +36,23 @@ const Book = ({ book }) => {
           </div>
           <div className="space-y-2">
             <h3 className="text-xl font-semibold dark:text-violet-400">
-              {name}
+              {data?.productName}
             </h3>
 
             <p className="leading-snug dark:text-gray-400">
-              Original Price : {originalPrice}
+              {/* Original Price : {originalPrice} */}
             </p>
             <p className="leading-snug dark:text-gray-400">
-              Resale Price : {resalePrice}
+              {/* Resale Price : {resalePrice} */}
             </p>
             <p className="leading-snug dark:text-gray-400">
-              Location : {location}
+              {/* Location : {location} */}
             </p>
             <p className="leading-snug dark:text-gray-400">
-              Use Time : {useTime}
+              {/* Use Time : {useTime} */}
             </p>
             <p className="leading-snug dark:text-gray-400">
-              Location : {location}
+              {/* Location : {location} */}
             </p>
           </div>
           <div className="flex items-center justify-center">

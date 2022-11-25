@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../Context/AuthProvider";
 const AddProduct = () => {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -8,7 +13,49 @@ const AddProduct = () => {
   } = useForm();
 
   const handleAddProduct = (data) => {
+    const sellerEmail = user?.email;
+    const sellerPhoto = user?.photoURL;
+    const sellerName = user?.displayName;
+    const image = data?.image[0];
+    const formData = new FormData();
+    formData.append("image", image);
+
     console.log(data);
+
+    const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbb_key}`;
+
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((ImgData) => {
+        const productInfo = {
+          data,
+          category: data?.category,
+          sellerEmail,
+          sellerName,
+          sellerPhoto,
+          image: ImgData?.data?.url,
+        };
+        console.log(productInfo);
+
+        fetch("http://localhost:5000/new-product", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(productInfo),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.acknowledged > 0) {
+              toast.success("Product added successfully");
+              navigate("/dashboard/my-products");
+            }
+          });
+      });
   };
   return (
     <div>
@@ -18,7 +65,7 @@ const AddProduct = () => {
 
       <div className="bg-gray-200 py-10  mx-auto flex justify-center items-center rounded-xl mt-10">
         <form onSubmit={handleSubmit(handleAddProduct)}>
-          <div className="grid grid-cols-2 gap-x-10">
+          <div className="grid lg:grid-cols-2 gap-x-10">
             <div className="form-control w-full max-w-xs">
               <label className="label">
                 <span className="label-text">Product Name</span>
@@ -117,10 +164,10 @@ const AddProduct = () => {
 
             <div className="form-control w-full max-w-xs">
               <label className="label">
-                <span className="label-text">Specialty</span>
+                <span className="label-text">Category</span>
               </label>
               <select
-                {...register("specialty")}
+                {...register("category")}
                 id=""
                 className="select select-bordered w-full max-w-xs"
               >
