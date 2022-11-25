@@ -80,7 +80,7 @@ const AuthProvider = ({ children }) => {
   // post user role
 
   const userRole = (name, email, photoURL) => {
-    const user = { name, email, photoURL, role: isSeller ? "seller" : "user" };
+    const user = { name, email, photoURL, role: isSeller ? "seller" : "buyer" };
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {

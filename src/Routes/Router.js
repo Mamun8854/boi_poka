@@ -1,10 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import Main from "../Layout/Main";
+import AllSellers from "../Pages/Dashboard/Admin/All Sellers/AllSellers";
+import AllBuyers from "../Pages/Dashboard/Admin/AllBuyers/AllBuyers";
 import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
 import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
 import Books from "../Pages/Home/Section2/Books/Books";
+import Category from "../Pages/Home/Section2/Category";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
@@ -15,6 +18,7 @@ const router = createBrowserRouter([
     element: <Main></Main>,
     children: [
       { path: "/", element: <Home></Home> },
+      // { path: "/category", element: <Category></Category> },
       { path: "/login", element: <Login></Login> },
       { path: "/signup", element: <SignUp></SignUp> },
       {
@@ -34,7 +38,12 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
-    children: [{ path: "/dashboard", element: <Dashboard></Dashboard> }],
+    children: [
+      { path: "/dashboard", element: <Dashboard></Dashboard> },
+      { path: "/dashboard/all-sellers", element: <AllSellers></AllSellers> },
+      { path: "/dashboard/all-buyers", element: <AllBuyers></AllBuyers> },
+      { path: "/dashboard/reported-items", element: <AllSellers></AllSellers> },
+    ],
   },
 
   {

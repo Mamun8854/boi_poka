@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
 import Navbar from "../../Pages/Shared/Navbar/Navbar";
 
 const DashboardLayout = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user);
   return (
-    <div>
+    <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 ">
       <Navbar></Navbar>
       <div className="drawer drawer-mobile">
         <input
@@ -17,25 +20,35 @@ const DashboardLayout = () => {
         </div>
         <div className="drawer-side">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 text-base-content">
+          <ul className="menu p-4 w-80 bg-base-100 text-base-content">
             <li>
               <Link to="/dashboard" className="text-teal-900 font-bold">
-                My Appointment
+                All Buyers
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/users" className="font-bold">
-                Users
+              <Link to="/dashboard/all-sellers" className="font-bold">
+                All Sellers
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/add-doctor" className="font-bold">
-                Add Doctor
+              <Link to="/dashboard/reported-items" className="font-bold">
+                Reported Items
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/manage-doctor" className="font-bold">
-                Manage Doctor
+              <Link to="/dashboard/my-buyers" className="font-bold">
+                My buyers
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/add-product" className="font-bold">
+                Add A product
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/my-products" className="font-bold">
+                My Products
               </Link>
             </li>
           </ul>

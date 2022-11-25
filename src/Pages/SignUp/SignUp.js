@@ -15,9 +15,22 @@ const SignUp = () => {
     const photoURL = form.photoURL.value;
     const password = form.password.value;
     createUser(email, password, name, photoURL);
+    // jwtAccessToken(email);
     navigate("/");
     form.reset();
   };
+
+  // // jwt token
+  // const jwtAccessToken = (email) => {
+  //   fetch(`http://localhost:5000/jwt?email=${email}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.accessToken) {
+  //         localStorage.setItem("token", data.accessToken);
+  //         navigate("/");
+  //       }
+  //     });
+  // };
 
   // handle Checkbox
   const handleCheckbox = (event) => {
@@ -27,7 +40,7 @@ const SignUp = () => {
   return (
     <div>
       <div className="flex justify-center bg-white py-20">
-        <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-100 text-gray-900 shadow-xl shadow-slate-400 hover:shadow-slate-900">
+        <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-white text-gray-900 shadow shadow-slate-700 ">
           <h1 className="text-2xl font-bold text-center text-black">
             Registration
           </h1>
@@ -99,15 +112,28 @@ const SignUp = () => {
                 className="w-full px-4 py-3 rounded-md border border-gray-700 stroke-cyan-500 text-gray-900 focus:border-violet-400"
               />
             </div>
-            <input
-              onChange={handleCheckbox}
-              type="checkbox"
-              className="checkbox mt-10"
-            />
+
             <p className="text-red-600 font-bold">
               {error === "Firebase: Error (auth/email-already-in-use)." &&
                 "This email is already used."}
             </p>
+
+            <div className="flex items-center gap-2">
+              <input
+                onChange={handleCheckbox}
+                type="checkbox"
+                name="showAgain"
+                id="showAgain"
+                className="rounded-sm "
+              />
+              <label
+                htmlFor="showAgain"
+                className="text-sm cursor-pointer dark:text-gray-400"
+              >
+                Join as a seller.
+              </label>
+            </div>
+
             <button className="block w-full p-3 text-center font-semibold rounded-sm text-gray-900 bg-violet-400">
               Registration
             </button>
