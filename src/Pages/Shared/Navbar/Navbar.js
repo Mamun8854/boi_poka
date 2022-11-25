@@ -80,6 +80,7 @@ const Navbar = () => {
                   Log Out
                 </button>
               </Link>
+              <button className="btn btn-outline">{user?.displayName}</button>
             </>
           ) : (
             <>

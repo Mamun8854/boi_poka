@@ -8,12 +8,14 @@ const UseSeller = (email, head) => {
   const [isSellerLoading, setIsaSellerLoading] = useState(true);
   const navigate = useNavigate();
 
+  //   console.log(email);
+
   useEffect(() => {
     if (email) {
       fetch(`http://localhost:5000/user/seller/${email}`)
         .then((res) => res.json())
         .then((data) => {
-          setIsSeller(data?.email);
+          setIsSeller(data?.isSeller);
           setIsaSellerLoading(false);
         });
     }

@@ -5,22 +5,13 @@ import sideImage from "./banner.json";
 const Section3 = () => {
   return (
     <section className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-      <h2 className="text-4xl text-center font-bold">
-        Send Here Your Opinion.
-      </h2>
       <div className="container px-6 py-16 mx-auto">
         <div className="items-center lg:flex">
           <div className="w-full lg:w-1/2">
             <div className="lg:max-w-lg">
               <h1 className="text-2xl font-semibold text-gray-800 dark:text-white lg:text-3xl">
-                Subscribe To The{" "}
-                <span className="text-blue-500">Newsletter</span>
+                Subscribe For Get Update
               </h1>
-
-              <p className="mt-4 text-gray-600 dark:text-gray-400">
-                be the first to knows when our{" "}
-                <span className="font-medium text-blue-500">Brand</span> is live
-              </p>
 
               <div className="flex flex-col mt-8 space-y-3 lg:space-y-0 lg:flex-row">
                 <input
