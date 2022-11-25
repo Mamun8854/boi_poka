@@ -69,7 +69,6 @@ const AuthProvider = ({ children }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         toast.success("Login Successfully");
       })
       .catch((error) => {
