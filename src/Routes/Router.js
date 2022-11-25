@@ -3,7 +3,11 @@ import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import Main from "../Layout/Main";
 import AllSellers from "../Pages/Dashboard/Admin/All Sellers/AllSellers";
 import AllBuyers from "../Pages/Dashboard/Admin/AllBuyers/AllBuyers";
+import AddProduct from "../Pages/Dashboard/Buyer/AddProduct/AddProduct";
+import MyOrders from "../Pages/Dashboard/Buyer/MyOrders/MyOrders";
+import MyProducts from "../Pages/Dashboard/Buyer/MyProducts/MyProducts";
 import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
+import MyBuyers from "../Pages/Dashboard/Seller/MyBuyers/MyBuyers";
 import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
 import Books from "../Pages/Home/Section2/Books/Books";
@@ -43,6 +47,12 @@ const router = createBrowserRouter([
       { path: "/dashboard/all-sellers", element: <AllSellers></AllSellers> },
       { path: "/dashboard/all-buyers", element: <AllBuyers></AllBuyers> },
       { path: "/dashboard/reported-items", element: <AllSellers></AllSellers> },
+
+      { path: "/dashboard/my-buyers", element: <MyBuyers></MyBuyers> },
+      { path: "/dashboard/add-product", element: <AddProduct></AddProduct> },
+      { path: "/dashboard/my-products", element: <MyProducts></MyProducts> },
+
+      { path: "/dashboard/my-orders", element: <MyOrders></MyOrders> },
     ],
   },
 

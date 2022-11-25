@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 
 const AllSellers = () => {
-  const [users, setUsers] = useState();
-
+  const [sellers, setSellers] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/allUsers")
+    fetch("http://localhost:5000/allSeller?role=seller")
       .then((res) => res.json())
-      .then((data) => setUsers(data));
+      .then((data) => {
+        setSellers(data);
+      });
   }, []);
 
   return (
     <div>
-      {users?.map((user) => console.log(user.role))}
       <h2>All Sellers</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
@@ -24,12 +24,14 @@ const AllSellers = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
+            {sellers?.map((seller) => (
+              <tr key={seller._id}>
+                <th>1</th>
+                <td>{seller?.name}</td>
+                <td>{seller?.email}</td>
+                <td>{seller?.role}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
