@@ -26,7 +26,7 @@ const AllBuyers = () => {
           </thead>
           <tbody>
             {buyers?.map((buyer, i) => (
-              <tr>
+              <tr key={buyer._id}>
                 <th>{i + 1}</th>
                 <td>
                   <div className="flex items-center space-x-3">
