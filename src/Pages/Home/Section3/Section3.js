@@ -5,6 +5,9 @@ import sideImage from "./banner.json";
 const Section3 = () => {
   return (
     <section className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+      <h2 className="text-4xl text-center font-bold">
+        Send Here Your Opinion.
+      </h2>
       <div className="container px-6 py-16 mx-auto">
         <div className="items-center lg:flex">
           <div className="w-full lg:w-1/2">
