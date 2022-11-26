@@ -1,10 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import UseToken from "../../Hooks/UseToken/UseToken";
 
 const SignUp = () => {
   const { createUser, error, setIsSeller } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState("");
+  const [token] = UseToken(userEmail);
+  if (token) {
+    navigate("/");
+  }
 
   // handle signUp
   const handleSignUp = (event) => {
@@ -15,22 +21,9 @@ const SignUp = () => {
     const photoURL = form.photoURL.value;
     const password = form.password.value;
     createUser(email, password, name, photoURL);
-    // jwtAccessToken(email);
-    navigate("/");
+    setUserEmail(email);
     form.reset();
   };
-
-  // // jwt token
-  // const jwtAccessToken = (email) => {
-  //   fetch(`http://localhost:5000/jwt?email=${email}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.accessToken) {
-  //         localStorage.setItem("token", data.accessToken);
-  //         navigate("/");
-  //       }
-  //     });
-  // };
 
   // handle Checkbox
   const handleCheckbox = (event) => {

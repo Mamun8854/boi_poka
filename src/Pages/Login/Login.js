@@ -1,12 +1,19 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
+import UseToken from "../../Hooks/UseToken/UseToken";
 const Login = () => {
   const { signIn, error, googleLogin, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [userEmail, setUserEmail] = useState("");
+  const [token] = UseToken(userEmail);
   const from = location.state?.from?.pathname || "/";
+
+  // if (token) {
+  //   return navigate(from, { replace: true });
+  // }
 
   const handleSignIn = (event) => {
     event.preventDefault();
@@ -14,15 +21,15 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     signIn(email, password);
-
+    setUserEmail(email);
     form.reset();
   };
 
   useEffect(() => {
-    if (user) {
+    if (user && token) {
       navigate(from, { replace: true });
     }
-  }, [user, from, navigate]);
+  }, [user, from, navigate, token]);
 
   return (
     <div>

@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import UseAdmin from "../../Hooks/UseAdmin/UseAdmin";
 import Loading from "../../Pages/Shared/Loading/Loading";
 
 const AdminRoute = ({ children }) => {
   const { user, loading, logOutUser } = useContext(AuthContext);
-  const [isAdmin, isAdminLoading] = UseAdmin(user?.email);
+  const navigate = useNavigate();
+
+  const [isAdmin, isAdminLoading] = UseAdmin(user?.email, true);
+
   const location = useLocation();
 
   if (loading || isAdminLoading) {
@@ -14,10 +17,11 @@ const AdminRoute = ({ children }) => {
   }
 
   if (!isAdmin) {
-    return logOutUser();
+    logOutUser();
+    return navigate("/");
   }
 
-  if (isAdmin) {
+  if (isAdmin === true) {
     return children;
   }
   return <Navigate to="/login" state={{ from: location }} replace></Navigate>;

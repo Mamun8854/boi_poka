@@ -11,7 +11,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebase.init";
-
 const googleProvider = new GoogleAuthProvider();
 
 export const AuthContext = createContext();
@@ -54,7 +53,8 @@ const AuthProvider = ({ children }) => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        console.log(user?.email);
+        getToken(user?.email);
         userRole(user?.name, user?.email, user?.photoURL);
         toast.success("Login With Google Successfully");
       })
@@ -99,6 +99,17 @@ const AuthProvider = ({ children }) => {
       .then(() => {})
       .catch((error) => {
         console.log(error);
+      });
+  };
+
+  const getToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.accessToken) {
+          localStorage.setItem("token", data.accessToken);
+        }
       });
   };
 

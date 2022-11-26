@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Context/AuthProvider";
 
 const UseSeller = (email, head) => {
-  const { logOutUser } = useContext(AuthContext);
   const [isSeller, setIsSeller] = useState(false);
   const [isSellerLoading, setIsaSellerLoading] = useState(true);
   const navigate = useNavigate();
@@ -12,7 +10,11 @@ const UseSeller = (email, head) => {
 
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/user/seller/${email}`)
+      fetch(`http://localhost:5000/user/seller/${email}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           setIsSeller(data?.isSeller);
