@@ -1,10 +1,13 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../../../Context/AuthProvider";
 
 const BookNowModal = ({ book }) => {
+  //   const { refetch } = useQuery();
   console.log(book.data.productName);
   //   product info
-  const { productName, resalePrice } = book?.data;
+  const { productName: bookName, resalePrice } = book?.data;
 
   //   user info
   const { user } = useContext(AuthContext);
@@ -21,7 +24,7 @@ const BookNowModal = ({ book }) => {
     const sellerEmail = book?.sellerEmail;
     const price = form.price.value;
     const productImg = book?.image;
-    const productName = productName;
+    const productName = bookName;
     const orderInfo = {
       productName,
       price,
@@ -32,6 +35,21 @@ const BookNowModal = ({ book }) => {
       sellerEmail,
       location,
     };
+
+    fetch("http://localhost:5000/orders", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(orderInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        toast.success("Your order complete");
+        form.reset();
+        // refetch();
+      });
   };
   return (
     <>
@@ -44,7 +62,7 @@ const BookNowModal = ({ book }) => {
           >
             ✕
           </label>
-          <h3 className="text-lg font-extrabold">{productName}</h3>
+          <h3 className="text-lg font-extrabold">{bookName}</h3>
           <form className="grid grid-cols-1 gap-4 mt-5" onSubmit={handleSubmit}>
             <label>Price</label>
             <input
@@ -90,11 +108,11 @@ const BookNowModal = ({ book }) => {
               className="input w-full bg-gray-100"
             />
 
-            <input
-              className="btn w-full mx-w-xs"
-              type="submit"
-              value="Submit"
-            />
+            <button className="w-ful">
+              <label htmlFor="bookNowModal" className="btn">
+                Book now
+              </label>
+            </button>
           </form>
         </div>
       </div>
