@@ -2,7 +2,8 @@ import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 
 const Book = ({ book, setBook }) => {
-  const { image, sellerName, sellerPhoto, data, sellerEmail } = book;
+  const { image, sellerName, sellerPhoto, data, sellerEmail, postTime, date } =
+    book;
   const {
     productName,
     time,
@@ -25,7 +26,8 @@ const Book = ({ book, setBook }) => {
               className="block object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
             />
             <div className="flex items-center text-xs">
-              <span>6 min ago</span>
+              <span className="mr-4">Post time : {postTime}</span>
+              <span>Post date : {date}</span>
             </div>
           </div>
           <div className="flex items-center mt-6">

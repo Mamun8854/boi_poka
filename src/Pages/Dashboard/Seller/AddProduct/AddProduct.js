@@ -4,7 +4,13 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../Context/AuthProvider";
 import Loading from "../../../Shared/Loading/Loading";
+
 const AddProduct = () => {
+  const current = new Date();
+  const time = current.toLocaleTimeString("en-US");
+  const date = `${current.getDate()}/${
+    current.getMonth() + 1
+  }/${current.getFullYear()}`;
   const { user, loading } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
@@ -12,6 +18,7 @@ const AddProduct = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  console.log(time);
 
   const handleAddProduct = (data) => {
     const sellerEmail = user?.email;
@@ -20,8 +27,6 @@ const AddProduct = () => {
     const image = data?.image[0];
     const formData = new FormData();
     formData.append("image", image);
-
-    console.log(data);
 
     const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbb_key}`;
 
@@ -38,6 +43,8 @@ const AddProduct = () => {
           sellerName,
           sellerPhoto,
           image: ImgData?.data?.url,
+          date: date,
+          postTime: time,
         };
         console.log(productInfo);
 
@@ -80,6 +87,7 @@ const AddProduct = () => {
                   required: "Please provide product name",
                 })}
                 type="text"
+                placeholder="Enter book name"
                 className="input input-bordered w-full max-w-xs"
               />
               <p className="pt-2">
@@ -99,6 +107,7 @@ const AddProduct = () => {
                   required: "Please Provide Product Price.",
                 })}
                 type="number"
+                placeholder="Enter Original price of this book"
                 className="input input-bordered w-full max-w-xs"
               />
               <p className="pt-2">
@@ -118,6 +127,7 @@ const AddProduct = () => {
                   required: "Please Provide Product Price.",
                 })}
                 type="number"
+                placeholder="Enter resale price"
                 className="input input-bordered w-full max-w-xs"
               />
               <p className="pt-2">
@@ -128,6 +138,7 @@ const AddProduct = () => {
                 )}
               </p>
             </div>
+
             <div className="form-control w-full max-w-xs">
               <label className="label">
                 <span className="label-text">Location</span>
@@ -137,6 +148,7 @@ const AddProduct = () => {
                   required: "Please Provide location.",
                 })}
                 type="text"
+                placeholder="Enter your location"
                 className="input input-bordered w-full max-w-xs"
               />
               <p className="pt-2">
@@ -156,6 +168,7 @@ const AddProduct = () => {
                   required: "Please Provide Your Contact Number",
                 })}
                 type="number"
+                placeholder="Enter your phone number"
                 className="input input-bordered w-full max-w-xs"
               />
               <p className="pt-2">
@@ -175,6 +188,7 @@ const AddProduct = () => {
                   required: "Please Provide time of use on this product",
                 })}
                 type="text"
+                placeholder="Enter used time "
                 className="input input-bordered w-full max-w-xs"
               />
               <p className="pt-2">
