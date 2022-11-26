@@ -1,17 +1,37 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../../../Context/AuthProvider";
 import Loading from "../../../Shared/Loading/Loading";
 
 const AllSellers = () => {
   const { loading } = useContext(AuthContext);
-  const [sellers, setSellers] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/allSeller?role=seller")
-      .then((res) => res.json())
-      .then((data) => {
-        setSellers(data);
-      });
-  }, []);
+
+  const { data: sellers = [], refetch } = useQuery({
+    queryKey: ["allSeller"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:5000/allSeller?role=seller");
+      const data = await res.json();
+      return data;
+    },
+  });
+
+  const handleDeleteSeller = (id) => {
+    const confirmDelete = window.confirm("Are you sure to delete this seller?");
+    if (confirmDelete) {
+      fetch(`http://localhost:5000/allSellers/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.deletedCount > 0) {
+            toast.success("seller deleted");
+            refetch();
+          }
+        });
+    }
+  };
 
   if (loading) {
     return <Loading></Loading>;
@@ -52,7 +72,12 @@ const AllSellers = () => {
                 </td>
                 <td>{seller?.role}</td>
                 <td>
-                  <button className="btn btn-sm bg-red-600">Delete</button>
+                  <button
+                    onClick={() => handleDeleteSeller(seller?._id)}
+                    className="btn btn-sm bg-red-600"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

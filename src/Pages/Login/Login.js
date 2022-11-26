@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
-import { FaGooglePlusG } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 const Login = () => {
   const { signIn, error, googleLogin, user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -92,8 +92,7 @@ const Login = () => {
               aria-label="Log in with Google"
               className=" rounded-sm btn btn-outline"
             >
-              <FaGooglePlusG className="mr-4 text-4xl"></FaGooglePlusG> Login
-              With Google
+              <FaGoogle className="mr-4 text-2xl"></FaGoogle> Login With Google
             </button>
           </div>
           <p className="text-xs text-center sm:px-6 text-gray-400">
