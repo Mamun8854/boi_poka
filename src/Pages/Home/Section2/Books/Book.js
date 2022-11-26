@@ -1,12 +1,22 @@
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 
-const Book = ({ book }) => {
-  const { image, sellerName, sellerPhoto, data } = book;
+const Book = ({ book, setBook }) => {
+  const { image, sellerName, sellerPhoto, data, sellerEmail } = book;
+  const {
+    productName,
+    time,
+    phone,
+    location,
+    description,
+    quality,
+    resalePrice,
+    originalPrice,
+  } = data;
   console.log(book);
   return (
     <div>
-      <div className="max-w-lg p-4 shadow-md dark:bg-gray-900 dark:text-gray-100">
+      <div className="max-w-lg p-4 shadow-xl  dark:bg-gray-900 dark:text-gray-100">
         <div className="space-y-4">
           <div className="space-y-2">
             <img
@@ -21,7 +31,7 @@ const Book = ({ book }) => {
           <div className="flex items-center mt-6">
             <img
               className="object-cover object-center w-10 h-10 rounded-full"
-              src={image}
+              src={sellerPhoto}
               alt=""
             />
 
@@ -30,35 +40,42 @@ const Book = ({ book }) => {
                 {sellerName}
               </h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Lead Developer
+                {sellerEmail}
               </p>
             </div>
           </div>
           <div className="space-y-2">
             <h3 className="text-xl font-semibold dark:text-violet-400">
-              {data?.productName}
+              {productName}
             </h3>
 
             <p className="leading-snug dark:text-gray-400">
-              {/* Original Price : {originalPrice} */}
+              Original Price :$ {originalPrice}
             </p>
             <p className="leading-snug dark:text-gray-400">
-              {/* Resale Price : {resalePrice} */}
+              Resale Price :$ {resalePrice}
             </p>
             <p className="leading-snug dark:text-gray-400">
-              {/* Location : {location} */}
+              Book Quality : {quality}
             </p>
             <p className="leading-snug dark:text-gray-400">
-              {/* Use Time : {useTime} */}
+              Location : {location}
             </p>
+            <p className="leading-snug dark:text-gray-400">Use Time : {time}</p>
+            <p className="leading-snug dark:text-gray-400">Contact : {phone}</p>
             <p className="leading-snug dark:text-gray-400">
-              {/* Location : {location} */}
+              Details : {description.slice(0, 100)}...
             </p>
           </div>
           <div className="flex items-center justify-center">
-            <button className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md btn">
-              <FaShoppingCart className="mr-4"></FaShoppingCart> Book now
-            </button>
+            <label
+              onClick={() => setBook(book)}
+              htmlFor="bookNowModal"
+              className="btn flex justify-center items-center w-full"
+            >
+              <FaShoppingCart className="mr-4"></FaShoppingCart>
+              Book now
+            </label>
           </div>
         </div>
       </div>

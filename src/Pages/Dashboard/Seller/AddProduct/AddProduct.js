@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../Context/AuthProvider";
+import Loading from "../../../Shared/Loading/Loading";
 const AddProduct = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
     register,
@@ -57,6 +58,10 @@ const AddProduct = () => {
           });
       });
   };
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <h2 className="text-4xl font-bold text-center text-teal-600">
@@ -87,19 +92,38 @@ const AddProduct = () => {
             </div>
             <div className="form-control w-full max-w-xs">
               <label className="label">
-                <span className="label-text">Price</span>
+                <span className="label-text">Original Price</span>
               </label>
               <input
-                {...register("price", {
+                {...register("originalPrice", {
                   required: "Please Provide Product Price.",
                 })}
                 type="number"
                 className="input input-bordered w-full max-w-xs"
               />
               <p className="pt-2">
-                {errors.price && (
+                {errors.originalPrice && (
                   <p className="text-red-600 font-semibold">
-                    {errors.price.message}
+                    {errors.originalPrice.message}
+                  </p>
+                )}
+              </p>
+            </div>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Resale Price</span>
+              </label>
+              <input
+                {...register("resalePrice", {
+                  required: "Please Provide Product Price.",
+                })}
+                type="number"
+                className="input input-bordered w-full max-w-xs"
+              />
+              <p className="pt-2">
+                {errors.resalePrice && (
+                  <p className="text-red-600 font-semibold">
+                    {errors.resalePrice.message}
                   </p>
                 )}
               </p>
@@ -171,7 +195,7 @@ const AddProduct = () => {
                 id=""
                 className="select select-bordered w-full max-w-xs"
               >
-                <option disabled selected>
+                <option disabled selected defaultValue="">
                   Please select a category
                 </option>
                 <option>Networking</option>
@@ -180,9 +204,35 @@ const AddProduct = () => {
               </select>
 
               <p className="pt-2">
-                {errors.password && (
+                {errors.category && (
                   <p className="text-red-600 font-semibold">
-                    {errors.password.message}
+                    {errors.category.message}
+                  </p>
+                )}
+              </p>
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">product Quality</span>
+              </label>
+              <select
+                {...register("quality")}
+                id=""
+                className="select select-bordered w-full max-w-xs"
+              >
+                <option disabled selected defaultValue="">
+                  select
+                </option>
+                <option>Excellent</option>
+                <option>Good</option>
+                <option>Fair</option>
+              </select>
+
+              <p className="pt-2">
+                {errors.quality && (
+                  <p className="text-red-600 font-semibold">
+                    {errors.quality.message}
                   </p>
                 )}
               </p>
