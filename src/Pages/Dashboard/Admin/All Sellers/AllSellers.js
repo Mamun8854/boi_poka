@@ -47,6 +47,7 @@ const AllSellers = () => {
               <th></th>
               <th>Name</th>
               <th>Role</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -71,6 +72,9 @@ const AllSellers = () => {
                   </div>
                 </td>
                 <td>{seller?.role}</td>
+                <td>
+                  <button className="btn btn-sm">Verify</button>
+                </td>
                 <td>
                   <button
                     onClick={() => handleDeleteSeller(seller?._id)}

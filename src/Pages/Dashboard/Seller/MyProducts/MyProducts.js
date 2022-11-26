@@ -3,11 +3,12 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../../Context/AuthProvider";
 import Loading from "../../../Shared/Loading/Loading";
 import { FaTrashAlt } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const MyProducts = () => {
   const { user, loading } = useContext(AuthContext);
 
-  const { data: myProducts = [] } = useQuery({
+  const { data: myProducts = [], refetch } = useQuery({
     queryKey: ["sellerEmail"],
     queryFn: async () => {
       const res = await fetch(
@@ -17,7 +18,20 @@ const MyProducts = () => {
       return data;
     },
   });
-  console.log(myProducts);
+
+  const handleDeleteProduct = (id) => {
+    fetch(`http://localhost:5000/myProducts-delete/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.deletedCount > 0) {
+          toast.success("Product deleted");
+          refetch();
+        }
+      });
+  };
+
   if (loading) {
     return <Loading></Loading>;
   }
@@ -34,6 +48,7 @@ const MyProducts = () => {
               <th>Name</th>
               <th>Price</th>
               <th>Action</th>
+              <th>Advertising</th>
               <th></th>
             </tr>
           </thead>
@@ -63,8 +78,16 @@ const MyProducts = () => {
                 </td>
                 <td>$ {product?.data?.resalePrice}</td>
                 <td>
-                  <button className="btn btn-sm border-0 bg-red-600">
+                  <button
+                    onClick={() => handleDeleteProduct(product._id)}
+                    className="btn btn-sm border-0 bg-red-600"
+                  >
                     <FaTrashAlt className="mr-2"></FaTrashAlt> Delete
+                  </button>
+                </td>
+                <td>
+                  <button className="btn btn-sm border-0">
+                    Make Advertise
                   </button>
                 </td>
               </tr>
