@@ -1,9 +1,17 @@
 import React from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaCheckCircle } from "react-icons/fa";
 
 const Book = ({ book, setBook }) => {
-  const { image, sellerName, sellerPhoto, data, sellerEmail, postTime, date } =
-    book;
+  const {
+    image,
+    sellerName,
+    sellerPhoto,
+    data,
+    sellerEmail,
+    postTime,
+    date,
+    verify,
+  } = book;
   const {
     productName,
     time,
@@ -38,9 +46,14 @@ const Book = ({ book, setBook }) => {
             />
 
             <div className="mx-4">
-              <h1 className="text-sm text-gray-700 dark:text-gray-200">
-                {sellerName}
-              </h1>
+              <div className="flex">
+                <h1 className="text-sm text-gray-700 dark:text-gray-200">
+                  {sellerName}
+                </h1>
+                <div className="ml-4">
+                  {verify && <FaCheckCircle></FaCheckCircle>}
+                </div>
+              </div>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {sellerEmail}
               </p>

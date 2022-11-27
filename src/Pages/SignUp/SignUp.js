@@ -1,16 +1,21 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import UseToken from "../../Hooks/UseToken/UseToken";
 
 const SignUp = () => {
-  const { createUser, error, setIsSeller } = useContext(AuthContext);
+  const { createUser, error, setIsSeller, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState("");
   const [token] = UseToken(userEmail);
-  if (token) {
-    navigate("/");
-  }
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [user, from, navigate, token]);
 
   // handle signUp
   const handleSignUp = (event) => {
