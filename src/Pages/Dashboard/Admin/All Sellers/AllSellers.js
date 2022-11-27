@@ -40,6 +40,23 @@ const AllSellers = () => {
     }
   };
 
+  const handleVerifySeller = (id) => {
+    fetch(`http://localhost:5000/user/${id}`, {
+      method: "put",
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success("Seller Verified Success");
+        }
+      });
+  };
+
   if (loading) {
     return <Loading></Loading>;
   }
@@ -80,7 +97,23 @@ const AllSellers = () => {
                 </td>
                 <td>{seller?.role}</td>
                 <td>
-                  <button className="btn btn-sm">Verify</button>
+                  {!seller?.verify && (
+                    <button
+                      onClick={() => handleVerifySeller(seller?.email)}
+                      className="btn btn-sm"
+                    >
+                      Verify
+                    </button>
+                  )}
+                  {seller?.verify && (
+                    <button
+                      disabled
+                      onClick={() => handleVerifySeller(seller?.email)}
+                      className="btn btn-sm text-white"
+                    >
+                      Verified
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button
