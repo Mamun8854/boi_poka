@@ -68,7 +68,7 @@ const BookNowModal = ({ book }) => {
             <input
               name="price"
               type="text"
-              defaultValue={resalePrice ? `$ ${resalePrice}` : "$00"}
+              defaultValue={resalePrice ? ` ${resalePrice}` : "$00"}
               readOnly
               placeholder="Type here"
               className="input w-full bg-gray-100"
