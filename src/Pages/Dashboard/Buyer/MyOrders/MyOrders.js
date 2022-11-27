@@ -1,22 +1,32 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../../../Context/AuthProvider";
+import Loading from "../../../Shared/Loading/Loading";
 
 const MyOrders = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
-  const { data: myOrders = [] } = useQuery({
+  const { data: myOrders = [], isLoading } = useQuery({
     queryKey: ["my-orders"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/my-orders?customerEmail=${user?.email}`
+        `http://localhost:5000/my-orders?customerEmail=${user?.email}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       const data = await res.json();
       return data;
     },
   });
 
-  // console.log(myOrders);
+  if (isLoading || loading) {
+    return <Loading></Loading>;
+  }
+  console.log(myOrders);
 
   return (
     <div>
@@ -37,7 +47,7 @@ const MyOrders = () => {
           </thead>
           <tbody>
             {myOrders?.map((order, i) => (
-              <tr>
+              <tr key={order._id}>
                 <th>{i + 1}</th>
                 <td>
                   <div className="flex items-center space-x-3">
@@ -49,15 +59,19 @@ const MyOrders = () => {
                         />
                       </div>
                     </div>
-                    {/* <div>
-                      <div className="font-bold">{order?.productName}</div>
-                    </div> */}
                   </div>
                 </td>
                 <td className="font-bold">{order?.productName}</td>
                 <td className="font-semibold">{order?.price}</td>
                 <th>
-                  <button className="btn btn-sm bg-teal-600">Pay</button>
+                  {order?.price && !order?.paid && (
+                    <Link to={`/dashboard/payment/${order?._id}`}>
+                      <button className="btn btn-sm bg-teal-600">Pay</button>
+                    </Link>
+                  )}
+                  {order?.price && order?.paid && (
+                    <button className="btn btn-sm ">Paid</button>
+                  )}
                 </th>
               </tr>
             ))}

@@ -12,7 +12,12 @@ const MyProducts = () => {
     queryKey: ["sellerEmail"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/my-products?sellerEmail=${user?.email}`
+        `http://localhost:5000/my-products?sellerEmail=${user?.email}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       const data = await res.json();
       return data;
@@ -22,6 +27,9 @@ const MyProducts = () => {
   const handleDeleteProduct = (id) => {
     fetch(`http://localhost:5000/myProducts-delete/${id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {

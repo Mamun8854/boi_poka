@@ -84,7 +84,6 @@ const Login = () => {
             <button className="block w-full p-3 text-center font-semibold rounded-sm text-gray-900 bg-violet-400">
               Sign in
             </button>
-            <p>{error}</p>
           </form>
           <div className="flex items-center pt-4 space-x-1">
             <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>

@@ -10,7 +10,11 @@ const AllBuyers = () => {
   const { data: buyers = [], refetch } = useQuery({
     queryKey: ["allSeller"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/buyers?role=buyer");
+      const res = await fetch("http://localhost:5000/buyers?role=buyer", {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+      });
       const data = await res.json();
       return data;
     },
@@ -21,6 +25,9 @@ const AllBuyers = () => {
     if (confirmDelete) {
       fetch(`http://localhost:5000/allBuyers/${id}`, {
         method: "DELETE",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("token")}`,
+        },
       })
         .then((res) => res.json())
         .then((data) => {

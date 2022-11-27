@@ -5,7 +5,11 @@ const UseToken = (email) => {
   console.log(email);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(`http://localhost:5000/jwt?email=${email}`, {
+      headers: {
+        authorization: `bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {
