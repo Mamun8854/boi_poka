@@ -27,7 +27,6 @@ const router = createBrowserRouter([
     errorElement: <RootError></RootError>,
     children: [
       { path: "/", element: <Home></Home> },
-      // { path: "/category", element: <Category></Category> },
       { path: "/login", element: <Login></Login> },
       { path: "/signup", element: <SignUp></SignUp> },
       {
@@ -101,7 +100,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/payment/:id",
-        element: <Payment></Payment>,
+        element: (
+          <PrivateRoute>
+            <Payment></Payment>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/my-orders/${params.id}`),
       },

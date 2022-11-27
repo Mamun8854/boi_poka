@@ -70,7 +70,9 @@ const MyOrders = () => {
                     </Link>
                   )}
                   {order?.price && order?.paid && (
-                    <button className="btn btn-sm ">Paid</button>
+                    <button disabled className="btn btn-sm ">
+                      Paid
+                    </button>
                   )}
                 </th>
               </tr>
