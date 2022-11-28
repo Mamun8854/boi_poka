@@ -1,5 +1,10 @@
 import React from "react";
-import { FaShoppingCart, FaCheckCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
+import {
+  FaShoppingCart,
+  FaCheckCircle,
+  FaRegWindowClose,
+} from "react-icons/fa";
 
 const Book = ({ book, setBook }) => {
   const {
@@ -11,6 +16,7 @@ const Book = ({ book, setBook }) => {
     postTime,
     date,
     verify,
+    _id,
   } = book;
   const {
     productName,
@@ -23,6 +29,23 @@ const Book = ({ book, setBook }) => {
     originalPrice,
   } = data;
   console.log(book);
+
+  const handleReport = (id) => {
+    // console.log(id);
+    fetch(`http://localhost:5000/report/${id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("Reported successfully !");
+        }
+      });
+  };
   return (
     <div className={book?.paid && "hidden"}>
       <div className="max-w-lg p-4 shadow-xl  dark:bg-gray-900 dark:text-gray-100">
@@ -38,25 +61,35 @@ const Book = ({ book, setBook }) => {
               <span>Post date : {date}</span>
             </div>
           </div>
-          <div className="flex items-center mt-6">
-            <img
-              className="object-cover object-center w-10 h-10 rounded-full"
-              src={sellerPhoto}
-              alt=""
-            />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center mt-6">
+              <img
+                className="object-cover object-center w-10 h-10 rounded-full"
+                src={sellerPhoto}
+                alt=""
+              />
 
-            <div className="mx-4">
-              <div className="flex">
-                <h1 className="text-sm text-gray-700 dark:text-gray-200">
-                  {sellerName}
-                </h1>
-                <div className="ml-4">
-                  {verify && <FaCheckCircle></FaCheckCircle>}
+              <div className="mx-4">
+                <div className="flex">
+                  <h1 className="text-sm text-gray-700 dark:text-gray-200">
+                    {sellerName}
+                  </h1>
+                  <div className="ml-4">
+                    {verify && <FaCheckCircle></FaCheckCircle>}
+                  </div>
                 </div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {sellerEmail}
+                </p>
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {sellerEmail}
-              </p>
+            </div>
+            <div>
+              <button
+                onClick={() => handleReport(_id)}
+                className="flex items-center bg-red-600 border-none font-bold btn btn-xs"
+              >
+                Report <FaRegWindowClose className="ml-2"></FaRegWindowClose>
+              </button>
             </div>
           </div>
           <div className="space-y-2">

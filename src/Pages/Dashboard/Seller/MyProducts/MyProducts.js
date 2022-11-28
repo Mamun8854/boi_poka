@@ -40,6 +40,25 @@ const MyProducts = () => {
       });
   };
 
+  // make advertise item
+  const handleAdvertise = (id) => {
+    console.log(id);
+    fetch(`http://localhost:5000/products/${id}`, {
+      method: "put",
+      headers: {
+        "content-type": "application/json",
+        auth: `bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success("Your product added in advertise item");
+        }
+      });
+  };
+
   if (loading) {
     return <Loading></Loading>;
   }
@@ -100,7 +119,10 @@ const MyProducts = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn btn-sm border-0">
+                  <button
+                    onClick={() => handleAdvertise(product._id)}
+                    className="btn btn-sm border-0"
+                  >
                     Make Advertise
                   </button>
                 </td>
