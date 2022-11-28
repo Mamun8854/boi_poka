@@ -8,7 +8,7 @@ const MyBuyers = () => {
     queryKey: ["order-buyer"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/my-buyer?sellerEmail=${user.email}`,
+        `https://boi-poka-server.vercel.app/my-buyer?sellerEmail=${user.email}`,
         {
           headers: {
             auth: `bearer ${localStorage.getItem("token")}`,

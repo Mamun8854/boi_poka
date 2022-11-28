@@ -12,7 +12,7 @@ const MyProducts = () => {
     queryKey: ["sellerEmail"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/my-products?sellerEmail=${user?.email}`,
+        `https://boi-poka-server.vercel.app/my-products?sellerEmail=${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("token")}`,
@@ -25,7 +25,7 @@ const MyProducts = () => {
   });
 
   const handleDeleteProduct = (id) => {
-    fetch(`http://localhost:5000/myProducts-delete/${id}`, {
+    fetch(`https://boi-poka-server.vercel.app/myProducts-delete/${id}`, {
       method: "DELETE",
       headers: {
         authorization: `bearer ${localStorage.getItem("token")}`,
@@ -43,7 +43,7 @@ const MyProducts = () => {
   // make advertise item
   const handleAdvertise = (id) => {
     console.log(id);
-    fetch(`http://localhost:5000/products/${id}`, {
+    fetch(`https://boi-poka-server.vercel.app/products/${id}`, {
       method: "put",
       headers: {
         "content-type": "application/json",
@@ -58,6 +58,7 @@ const MyProducts = () => {
         }
       });
   };
+  console.log(myProducts);
 
   if (loading) {
     return <Loading></Loading>;
@@ -119,12 +120,18 @@ const MyProducts = () => {
                   </button>
                 </td>
                 <td>
-                  <button
-                    onClick={() => handleAdvertise(product._id)}
-                    className="btn btn-sm border-0"
-                  >
-                    Make Advertise
-                  </button>
+                  {product?.advertise ? (
+                    <button
+                      onClick={() => handleAdvertise(product._id)}
+                      className="btn btn-sm border-0"
+                    >
+                      Make Advertise
+                    </button>
+                  ) : (
+                    <button className="font-bold text-green-600">
+                      Advertised
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

@@ -39,7 +39,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) => {
-          return fetch(`http://localhost:5000/category/${params.id}`);
+          return fetch(
+            `https://boi-poka-server.vercel.app/category/${params.id}`
+          );
         },
       },
     ],
@@ -108,7 +110,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/my-orders/${params.id}`),
+          fetch(`https://boi-poka-server.vercel.app/my-orders/${params.id}`),
       },
       { path: "/dashboard/my-orders", element: <MyOrders></MyOrders> },
     ],

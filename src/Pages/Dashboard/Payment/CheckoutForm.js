@@ -13,7 +13,7 @@ const CheckoutForm = ({ orders }) => {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://boi-poka-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const CheckoutForm = ({ orders }) => {
         orderId: _id,
         customerEmail: customerEmail,
       };
-      fetch("http://localhost:5000/payments", {
+      fetch("https://boi-poka-server.vercel.app/payments", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -83,13 +83,16 @@ const CheckoutForm = ({ orders }) => {
         .then((data) => {
           console.log(data);
           if (data?.insertedId) {
-            fetch(`http://localhost:5000/books?image=${productImg}`, {
-              method: "PUT",
-              headers: {
-                "content-type": "application/json",
-                authorization: `bearer ${localStorage.getItem("token")}`,
-              },
-            });
+            fetch(
+              `https://boi-poka-server.vercel.app/books?image=${productImg}`,
+              {
+                method: "PUT",
+                headers: {
+                  "content-type": "application/json",
+                  authorization: `bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            );
 
             setSuccess("Congratulation ! Your Payment Completed");
             setTransactionId(paymentIntent?.id);

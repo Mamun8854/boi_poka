@@ -80,7 +80,7 @@ const AuthProvider = ({ children }) => {
 
   const userRole = (name, email, photoURL) => {
     const user = { name, email, photoURL, role: isSeller ? "seller" : "buyer" };
-    fetch("http://localhost:5000/users", {
+    fetch("https://boi-poka-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -103,7 +103,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const getToken = (email) => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(`https://boi-poka-server.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

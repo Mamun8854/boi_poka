@@ -4,7 +4,7 @@ import Category from "./Category";
 const Section2 = () => {
   const [categories, setCategories] = useState();
   useEffect(() => {
-    fetch("http://localhost:5000/category")
+    fetch("https://boi-poka-server.vercel.app/category")
       .then((res) => res.json())
       .then((data) => {
         setCategories(data);

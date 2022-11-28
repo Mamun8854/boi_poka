@@ -10,11 +10,14 @@ const AllBuyers = () => {
   const { data: buyers = [], refetch } = useQuery({
     queryKey: ["allSeller"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/buyers?role=buyer", {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await fetch(
+        "https://boi-poka-server.vercel.app/buyers?role=buyer",
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       const data = await res.json();
       return data;
     },
@@ -23,7 +26,7 @@ const AllBuyers = () => {
   const handleDeleteBuyer = (id) => {
     const confirmDelete = window.confirm("Are you sure to delete this buyer?");
     if (confirmDelete) {
-      fetch(`http://localhost:5000/allBuyers/${id}`, {
+      fetch(`https://boi-poka-server.vercel.app/allBuyers/${id}`, {
         method: "DELETE",
         headers: {
           authorization: `bearer ${localStorage.getItem("token")}`,

@@ -12,7 +12,9 @@ const ReportedItems = () => {
   } = useQuery({
     queryKey: ["buyer"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/report?report=report");
+      const res = await fetch(
+        "https://boi-poka-server.vercel.app/report?report=report"
+      );
       const data = await res.json();
       return data;
     },
@@ -23,7 +25,7 @@ const ReportedItems = () => {
   const handleDeleteProduct = (id) => {
     const confirmDelete = window.confirm("Are you sure delete this product?");
     if (confirmDelete) {
-      fetch(`http://localhost:5000/myProducts-delete/${id}`, {
+      fetch(`https://boi-poka-server.vercel.app/myProducts-delete/${id}`, {
         method: "DELETE",
         headers: {
           authorization: `bearer ${localStorage.getItem("token")}`,
@@ -43,7 +45,9 @@ const ReportedItems = () => {
   }
   return (
     <div>
-      <h2>Reported Items</h2>
+      <h2 className="text-4xl font-bold py-10 text-center text-teal-600">
+        Reported Items
+      </h2>
       <div className="overflow-x-auto w-full">
         <table className="table table-zebra w-full">
           <thead>
@@ -52,8 +56,6 @@ const ReportedItems = () => {
               <th>Name</th>
               <th>Price</th>
               <th>Action</th>
-              <th>Advertising</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>

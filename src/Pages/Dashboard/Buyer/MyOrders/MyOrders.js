@@ -11,7 +11,7 @@ const MyOrders = () => {
     queryKey: ["my-orders"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/my-orders?customerEmail=${user?.email}`,
+        `https://boi-poka-server.vercel.app/my-orders?customerEmail=${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("token")}`,

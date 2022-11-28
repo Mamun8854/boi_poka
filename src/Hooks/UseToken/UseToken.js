@@ -5,7 +5,7 @@ const UseToken = (email) => {
   console.log(email);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/jwt?email=${email}`, {
+    fetch(`https://boi-poka-server.vercel.app/jwt?email=${email}`, {
       headers: {
         authorization: `bearer ${localStorage.getItem("token")}`,
       },

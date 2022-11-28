@@ -6,7 +6,7 @@ const AddvertiseItem = () => {
   const { data: books = [], isLoading } = useQuery({
     queryKey: ["books"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/books");
+      const res = await fetch("https://boi-poka-server.vercel.app/books");
       const data = await res.json();
       return data;
     },
@@ -14,7 +14,7 @@ const AddvertiseItem = () => {
   if (isLoading) {
     return <Loading></Loading>;
   }
-  console.log(books);
+  // console.log(books);
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 ">
       <h2>Advertise Items Here</h2>
@@ -28,16 +28,13 @@ const AddvertiseItem = () => {
                 className="object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
               />
               <div className="mt-6 mb-2">
-                <span className="block text-xs font-medium tracking-widest uppercase dark:text-violet-400">
-                  Quisque
+                <span className="block text-xs font-medium tracking-widest  dark:text-violet-400">
+                  advertised item
                 </span>
-                <h2 className="text-xl font-semibold tracking-wide">
+                <h2 className="text-xl font-bold text-center tracking-wide">
                   {book?.data?.productName}
                 </h2>
               </div>
-              <p className="dark:text-gray-100">
-                {book?.data?.description && book?.data?.description}
-              </p>
             </div>
           </div>
         ))}

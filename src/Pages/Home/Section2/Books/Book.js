@@ -32,7 +32,7 @@ const Book = ({ book, setBook }) => {
 
   const handleReport = (id) => {
     // console.log(id);
-    fetch(`http://localhost:5000/report/${id}`, {
+    fetch(`https://boi-poka-server.vercel.app/report/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

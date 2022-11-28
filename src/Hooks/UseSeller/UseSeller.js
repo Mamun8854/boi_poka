@@ -10,7 +10,7 @@ const UseSeller = (email, head) => {
 
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/user/seller/${email}`, {
+      fetch(`https://boi-poka-server.vercel.app/user/seller/${email}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem("token")}`,
         },

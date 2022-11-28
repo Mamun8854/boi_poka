@@ -10,7 +10,7 @@ const UseAdmin = (email, head) => {
   // console.log(isAdmin);
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/user/admin/${email}`, {
+      fetch(`https://boi-poka-server.vercel.app/user/admin/${email}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem("token")}`,
         },

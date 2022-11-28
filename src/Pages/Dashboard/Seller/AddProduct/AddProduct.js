@@ -19,7 +19,7 @@ const AddProduct = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${user?.email}`)
+    fetch(`https://boi-poka-server.vercel.app/user/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, [user?.email]);
@@ -63,7 +63,7 @@ const AddProduct = () => {
         };
         console.log(productInfo);
 
-        fetch("http://localhost:5000/new-product", {
+        fetch("https://boi-poka-server.vercel.app/new-product", {
           method: "POST",
           headers: {
             "content-type": "application/json",
