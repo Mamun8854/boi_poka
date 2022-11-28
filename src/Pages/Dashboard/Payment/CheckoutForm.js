@@ -9,7 +9,7 @@ const CheckoutForm = ({ orders }) => {
   const [processing, setProcessing] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
-  const { price, customerEmail, customerName, _id } = orders;
+  const { price, customerEmail, customerName, _id, productImg } = orders;
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -83,6 +83,14 @@ const CheckoutForm = ({ orders }) => {
         .then((data) => {
           console.log(data);
           if (data?.insertedId) {
+            fetch(`http://localhost:5000/books?image=${productImg}`, {
+              method: "PUT",
+              headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem("token")}`,
+              },
+            });
+
             setSuccess("Congratulation ! Your Payment Completed");
             setTransactionId(paymentIntent?.id);
           }

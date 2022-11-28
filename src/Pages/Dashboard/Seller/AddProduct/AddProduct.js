@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -6,13 +6,27 @@ import { AuthContext } from "../../../../Context/AuthProvider";
 import Loading from "../../../Shared/Loading/Loading";
 
 const AddProduct = () => {
+  const [users, setUsers] = useState();
   const current = new Date();
   const time = current.toLocaleTimeString("en-US");
+
   const date = `${current.getDate()}/${
     current.getMonth() + 1
   }/${current.getFullYear()}`;
+
   const { user, loading } = useContext(AuthContext);
+  // const {email}=
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/user/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
+  }, [user?.email]);
+
+  console.log(users);
+  const verify = users?.verify;
+
   const {
     register,
     handleSubmit,
@@ -45,6 +59,7 @@ const AddProduct = () => {
           image: ImgData?.data?.url,
           date: date,
           postTime: time,
+          verify,
         };
         console.log(productInfo);
 
@@ -69,6 +84,7 @@ const AddProduct = () => {
   if (loading) {
     return <Loading></Loading>;
   }
+
   return (
     <div>
       <h2 className="text-4xl font-bold text-center text-teal-600">

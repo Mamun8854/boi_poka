@@ -78,8 +78,14 @@ const MyProducts = () => {
                       <div className="font-bold">
                         {product?.data?.productName}
                       </div>
-                      <div className="text-sm opacity-50">
-                        {myProducts.length > 0 ? "available" : "sold"}
+                      <div
+                        className={
+                          product?.paid
+                            ? "text-gray-500 font-bold"
+                            : "text-green-600 font-bold"
+                        }
+                      >
+                        {product?.paid ? "sold" : "available"}
                       </div>
                     </div>
                   </div>

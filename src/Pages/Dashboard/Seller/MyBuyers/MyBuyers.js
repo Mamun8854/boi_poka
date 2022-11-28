@@ -21,7 +21,10 @@ const MyBuyers = () => {
   });
   return (
     <div>
-      <h2>My Buyers</h2>
+      <h2 className="font-bold text-4xl text-center py-10 text-teal-600">
+        My Buyers
+      </h2>
+
       <div className="overflow-x-auto w-full">
         <table className="table w-full">
           <thead>

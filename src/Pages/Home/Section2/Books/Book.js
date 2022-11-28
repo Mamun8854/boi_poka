@@ -24,7 +24,7 @@ const Book = ({ book, setBook }) => {
   } = data;
   console.log(book);
   return (
-    <div>
+    <div className={book?.paid && "hidden"}>
       <div className="max-w-lg p-4 shadow-xl  dark:bg-gray-900 dark:text-gray-100">
         <div className="space-y-4">
           <div className="space-y-2">
