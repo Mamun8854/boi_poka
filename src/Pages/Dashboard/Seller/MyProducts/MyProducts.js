@@ -120,7 +120,7 @@ const MyProducts = () => {
                   </button>
                 </td>
                 <td>
-                  {product?.advertise ? (
+                  {!product?.advertise ? (
                     <button
                       onClick={() => handleAdvertise(product._id)}
                       className="btn btn-sm border-0"
