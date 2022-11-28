@@ -1,14 +1,21 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../../Context/AuthProvider";
+import Loading from "../../Shared/Loading/Loading";
 import CheckoutForm from "./CheckoutForm";
 
 const stripePromise = loadStripe(process.env.REACT_APP_payment_pk);
 console.log(stripePromise);
 const Payment = () => {
+  const { loading } = useContext(AuthContext);
   const orders = useLoaderData();
-  console.log(orders);
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
+  // console.log(orders);
   return (
     <div className="bg-gray-200 p-10 flex flex-col items-center rounded-2xl">
       <h2 className="text-2xl text-center font-semibold mb-10">
